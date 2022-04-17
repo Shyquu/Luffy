@@ -1,5 +1,6 @@
 package dev.koo.startup;
 
+import dev.koo.servers.PrefixUtil;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -16,6 +17,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -28,8 +30,9 @@ public class StartUtil {
 
     static DiscordApi api;
     static List<SlashCommand> commands;
-
+    private static HashMap<String, String> map = new HashMap<String, String>();
     public static void startBot() throws IOException {
+
         api = new DiscordApiBuilder().setToken(getToken()).login().join();
         api.updateActivity(ActivityType.LISTENING, api.getServers().size() + " Servers");
 
@@ -38,6 +41,9 @@ public class StartUtil {
 
         // Slash Commands
 
+        // SlashCommand cmd = SlashCommand.with("prefix", "set prefix for your server", List.of(SlashCommandOption.create(SlashCommandOptionType.STRING, "prefix", "new prefix", true))).createForServer(server).join();
+
+
         commands = api.getServerSlashCommands(server).join();
 
         StringBuilder builder = new StringBuilder();
@@ -45,14 +51,19 @@ public class StartUtil {
         for (SlashCommand command : commands) {
             builder.append(command.getName()).append(" - ").append(command.getIdAsString()).append("\n");
         }
-        builder.append("---------------------------------");
+        builder.append("----------------------------");
 
         System.out.println(builder.toString());
 
-        // SlashCommand command = SlashCommand.with("prefix", "set prefix for your server", List.of(SlashCommandOption.create(SlashCommandOptionType.STRING, "prefix", "new prefix", true))).createForServer(server).join();
-
-        System.out.println(api.createBotInvite(Permissions.fromBitmask(0x8)));
+        System.out.println("https://discord.com/api/oauth2/authorize?client_id=957281336735989820&permissions=8&scope=bot%20applications.commands");
         Register.register(api);
+
+        // hash prefixes
+
+        for (Server selectedServer : api.getServers()) {
+            map.put(selectedServer.getIdAsString(), new PrefixUtil(selectedServer).getPrefix());
+        }
+
     }
 
     public static void stopBot() {
@@ -71,4 +82,7 @@ public class StartUtil {
         return commands;
     }
 
+    public static HashMap<String, String> getMap() {
+        return map;
+    }
 }

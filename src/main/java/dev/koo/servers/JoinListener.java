@@ -1,5 +1,6 @@
 package dev.koo.servers;
 
+import dev.koo.Luffy;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.event.server.ServerJoinEvent;
 import org.javacord.api.listener.server.ServerJoinListener;
@@ -9,13 +10,16 @@ import org.javacord.api.listener.server.ServerJoinListener;
  * @created 26/03/2022 - 15:43
  * @project Luffy
  */
-public class JoinMessage implements ServerJoinListener {
+public class JoinListener implements ServerJoinListener {
 
     @Override
     public void onServerJoin(ServerJoinEvent event) {
         if(event.getServer().getSystemChannel().isPresent()) {
             event.getServer().getSystemChannel().get().sendMessage(joinMessage());
         } else event.getServer().getTextChannels().get(0).sendMessage(joinMessage());
+
+        if(!Luffy.getMap().containsKey(event.getServer().getIdAsString())) { new PrefixUtil(event.getServer()).newServer(); }
+
     }
 
     public EmbedBuilder joinMessage() {
