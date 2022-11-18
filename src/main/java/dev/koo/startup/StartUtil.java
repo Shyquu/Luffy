@@ -1,6 +1,7 @@
 package dev.koo.startup;
 
 import dev.koo.servers.PrefixUtil;
+import dev.koo.utils.MySQLForItems;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.activity.ActivityType;
@@ -33,16 +34,16 @@ public class StartUtil {
     private static HashMap<String, String> map = new HashMap<String, String>();
     public static void startBot() throws IOException {
 
+        String token = getToken();
         api = new DiscordApiBuilder().setToken(getToken()).login().join();
         api.updateActivity(ActivityType.LISTENING, api.getServers().size() + " Servers");
 
         //Test server
-        Server server = api.getServerById("957281986878251028").get();
+        Server server = api.getServerById("834122488345788416").get();
 
         // Slash Commands
 
         // SlashCommand cmd = SlashCommand.with("prefix", "set prefix for your server", List.of(SlashCommandOption.create(SlashCommandOptionType.STRING, "prefix", "new prefix", true))).createForServer(server).join();
-
 
         commands = api.getServerSlashCommands(server).join();
 

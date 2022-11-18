@@ -16,24 +16,33 @@ public class ItemBuilder {
         this.description = description;
     }
 
-    public void setId(long id) {
+    public ItemBuilder() {
+
+    }
+
+    public ItemBuilder setId(long id) {
         this.id = id;
+        return this;
     }
 
-    public void setPrice(long price) {
+    public ItemBuilder setPrice(long price) {
         this.price = price;
+        return this;
     }
 
-    public void setName(String name) {
+    public ItemBuilder setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public void setImage_url(String image_url) {
+    public ItemBuilder setImage_url(String image_url) {
         this.image_url = image_url;
+        return this;
     }
 
-    public void setDescription(String description) {
+    public ItemBuilder setDescription(String description) {
         this.description = description;
+        return this;
     }
 
     public Item build() {

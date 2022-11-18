@@ -28,7 +28,8 @@ public class Luffy {
         connection = MySQL.connect();
         StartUtil.startBot();
         map = StartUtil.getMap();
-        MySQL.setup();
+        MySQL.deleteDatabse("items");
+        //MySQL.setup();
         consoleMan();
     }
 

@@ -14,7 +14,7 @@ public class PrefixSlash implements SlashCommandCreateListener {
     @Override
     public void onSlashCommandCreate(SlashCommandCreateEvent event) {
 
-        if(event.getSlashCommandInteraction().getCommandIdAsString().equalsIgnoreCase("965344243050774618")) {
+        if(event.getSlashCommandInteraction().getCommandIdAsString().equalsIgnoreCase("1004467904055623851")) {
 
             Server server = event.getSlashCommandInteraction().getServer().get();
             String old_prefix = Luffy.getPrefix(server);

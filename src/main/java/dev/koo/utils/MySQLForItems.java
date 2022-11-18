@@ -1,5 +1,8 @@
 package dev.koo.utils;
 
+import dev.koo.Luffy;
+import jdk.dynalink.linker.support.Lookup;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,22 +12,38 @@ import java.util.Date;
 import java.util.List;
 
 public class MySQLForItems {
+/*
+    public static final String WRITE_OBJECT_SQL = "INSERT INTO items(item_id, item) VALUES (?, ?)";
 
-    static final String WRITE_OBJECT_SQL = "INSERT INTO items(name, object_value) VALUES (?, ?)";
-
-    static final String READ_OBJECT_SQL = "SELECT object_value FROM items WHERE id = ?";
+    public static final String READ_OBJECT_SQL = "SELECT item FROM items WHERE item_id = ?";
 
     public static Connection getConnection() throws Exception {
-        String driver = "org.gjt.mm.mysql.Driver";
-        String url = "jdbc:mysql://127.0.0.1:3306/database";
-        String username = "root";
-        String password = "root";
-        Class.forName(driver);
-        Connection conn = DriverManager.getConnection(url, username, password);
-        return conn;
+        return Luffy.getConnection();
     }
 
     public static long writeJavaObject(Connection conn, Object object) throws Exception {
+        String className = object.getClass().getName();
+        PreparedStatement pstmt = conn.prepareStatement(WRITE_OBJECT_SQL);
+
+        // set input parameters
+        pstmt.setString(1, className);
+        pstmt.setObject(2, object);
+        pstmt.executeUpdate();
+
+        // get the generated key for the id
+        ResultSet rs = pstmt.getGeneratedKeys();
+        int id = -1;
+        if (rs.next()) {
+            id = rs.getInt(1);
+        }
+
+        rs.close();
+        pstmt.close();
+        System.out.println("writeJavaObject: done serializing: " + className);
+        return id;
+    }
+
+    public static long writeJavaObject2(Connection conn, Object object) throws Exception {
         String className = object.getClass().getName();
         PreparedStatement pstmt = conn.prepareStatement(WRITE_OBJECT_SQL);
 
@@ -82,4 +101,6 @@ public class MySQLForItems {
         }
     }
 
+
+ */
 }

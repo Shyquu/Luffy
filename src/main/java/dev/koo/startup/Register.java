@@ -1,7 +1,10 @@
 package dev.koo.startup;
 
+import dev.koo.admin.AdminCommands;
+import dev.koo.fun.CalculateCmd;
 import dev.koo.servers.JoinListener;
 import dev.koo.servers.PrefixSlash;
+import dev.koo.shop.ItemCmd;
 import org.javacord.api.DiscordApi;
 
 /**
@@ -15,6 +18,9 @@ public class Register {
 
         api.addListener(new JoinListener());
         api.addListener(new PrefixSlash());
+        api.addListener(new ItemCmd());
+        api.addListener(new AdminCommands());
+        api.addListener(new CalculateCmd());
 
     }
 

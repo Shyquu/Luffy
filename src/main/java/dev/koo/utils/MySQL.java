@@ -2,7 +2,6 @@ package dev.koo.utils;
 
 import dev.koo.Luffy;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -30,9 +29,17 @@ public class MySQL {
             Luffy.getConnection().createStatement().execute(
                     ("CREATE TABLE IF NOT EXISTS servers(ID INTEGER primary key AUTO_INCREMENT, server_id text not null, prefix text not null, premium_status text not null)"));
             Luffy.getConnection().createStatement().execute(
-                    ("CREATE TABLE IF NOT EXISTS items(ID INTEGER primary key AUTO_INCREMENT, item_id text not null, item json not null)"));
+                    ("CREATE TABLE IF NOT EXISTS items(ID INTEGER primary key AUTO_INCREMENT, item_id text not null, item blob not null)"));
         } catch (SQLException throwable) {
             throwable.printStackTrace();
+        }
+    }
+
+    public static void deleteDatabse(String tableName) {
+        try {
+            Luffy.getConnection().createStatement().execute("DROP TABLE ``" + tableName + "``");
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
